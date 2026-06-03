@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+  <title>覃健强 · 数字名片</title>
+  <!-- 清爽气泡感 · 蓝色调 -->
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      background: #e9f4fe;  /* 晴空冰蓝气泡感 */
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+      line-height: 1.5;
+      padding: 1.5rem 1rem 3rem;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      color: #1b2b4a;
+    }
+
+    /* 主卡片：透明磨砂玻璃，减少大块色块，保持通透 */
+    .page {
+      max-width: 780px;
+      width: 100%;
+      background: rgba(255, 255, 255, 0.45);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-radius: 36px;
+      padding: 2rem 1.8rem 2.5rem;
+      box-shadow: 0 12px 30px rgba(32, 96, 168, 0.10), 0 4px 10px rgba(0, 60, 120, 0.04);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      transition: all 0.2s ease;
+      display: flex;
+      flex-direction: column;
+      height: 100%;  /* 确保.page填满整个屏幕高度 */
+    }
+
+    .content-section {
+      display: flex;
+      flex-direction: column;
+      flex: 1;  /* 让.content-section占据剩余所有可用空间 */
+    }
+
+    .personal-info {
+      flex: 2;  /* 占据2/3的比例 */
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      /* margin-bottom: 1.5rem;  /* 增加下边界间距 */
+    }
+
+    /* 头像 + 名字 + 气泡简介 */
+    .profile-wrap {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 1.5rem 1.2rem;
+      margin-bottom: 2.2rem;
+    }
+
+    .avatar {
+      flex-shrink: 0;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: linear-gradient(145deg, #7ec8f0, #2580c7);
+      box-shadow: 0 6px 14px rgba(28, 105, 175, 0.2);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      font-size: 2.5rem;
+      font-weight: 400;
+      transition: 0.2s;
+      border: 2px solid rgba(255, 255, 255, 0.8);
+    }
+
+    .avatar span {
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.1));
+    }
+
+    .name-bubble {
+      flex: 1;
+      min-width: 180px;
+    }
+
+    .name-bubble h1 {
+      font-size: 1.9rem;
+      font-weight: 600;
+      letter-spacing: -0.02em;
+      color: #0c2c4a;
+      display: flex;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 0.2rem 0.8rem;
+    }
+
+    .name-bubble h1 small {
+      font-size: 1rem;
+      font-weight: 400;
+      color: #306e96;
+      background: rgba(58, 131, 198, 0.10);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      border: 1px solid rgba(58, 131, 198, 0.15);
+      letter-spacing: 0.2px;
+      backdrop-filter: blur(2px);
+      line-height: 1.6;
+    }
+
+    .tagline {
+      margin-top: 0.5rem;
+      font-size: 1.05rem;
+      color: #1d4970;
+      background: rgba(120, 180, 240, 0.08);
+      padding: 0.3rem 1rem 0.3rem 0;
+      border-radius: 30px;
+      display: inline-block;
+      backdrop-filter: blur(2px);
+      font-weight: 420;
+    }
+
+    .tagline i {
+      font-style: normal;
+      background: rgba(44, 120, 200, 0.08);
+      padding: 0.2rem 1rem 0.2rem 0.8rem;
+      border-radius: 30px;
+      display: inline-block;
+    }
+
+    .tagline span {
+      background: #cbe4fe;
+      padding: 0.1rem 0.8rem;
+      border-radius: 30px;
+      color: #12558a;
+      font-weight: 500;
+      margin: 0 0.1rem;
+    }
+
+    /* 个人信息展示 —— 极简 无大块分割 */
+    .info-grid {
+      display: flex;
+      flex-wrap: wrap;
+      column-gap: 1rem;
+      row-gap: 0.8rem;
+      background: rgba(255, 255, 255, 0.3);
+      padding: 0.8rem 1.2rem;
+      border-radius: 50px;
+      margin-bottom: 2.5rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      align-items: center;
+    }
+
+    .info-item {
+      display: flex;
+      align-items: center;
+      gap: 0.3rem 0.6rem;
+      font-size: 0.9rem;
+      color: #184269;
+      background: rgba(193, 221, 250, 0.2);
+      padding: 0.2rem 1rem 0.2rem 0.9rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+      border: 1px solid rgba(255,255,255,0.25);
+      flex-wrap: wrap;
+    }
+
+    .info-item .label {
+      font-weight: 500;
+      color: #0f375b;
+      opacity: 0.8;
+    }
+
+    .info-item .value {
+      font-weight: 440;
+    }
+
+    .info-item .highlight {
+      background: #dbeafe;
+      border-radius: 30px;
+      padding: 0 0.6rem;
+      font-weight: 500;
+    }
+
+    .separator {
+      height: 1px;
+      background: rgba(54, 122, 196, 0.15);  /* 分割线颜色 */
+      margin: 2.0rem 0;  /* 上下间距 */
+    }
+
+    /* 数字分身专区 —— 清爽聊天区 */
+    .chat-section {
+      flex: 1;  /* 占据1/3的比例 */
+      margin-top: 0;  /* 移除顶部外边距，因为我们已经通过gap设置了间距 */
+      border-top: none;  /* 移除顶部边框 */
+    }
+
+    .chat-header {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1.2rem;
+    }
+
+    .chat-header h2 {
+      font-size: 1.15rem;
+      font-weight: 600;
+      color: #12426b;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+
+    .chat-header h2 i {
+      font-style: normal;
+      background: #63a4d9;
+      color: white;
+      font-size: 0.7rem;
+      padding: 0.2rem 0.6rem;
+      border-radius: 30px;
+      margin-left: 0.3rem;
+    }
+
+    .chat-hint {
+      font-size: 0.85rem;
+      color: #24668d;
+      background: rgba(120, 190, 245, 0.15);
+      padding: 0.2rem 1rem;
+      border-radius: 40px;
+      backdrop-filter: blur(2px);
+    }
+
+    .chat-box {
+      background: rgba(255, 255, 255, 0.35);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      border-radius: 28px;
+      padding: 1rem 1rem 0.8rem;
+      border: 1px solid rgba(255, 255, 255, 0.6);
+      box-shadow: 0 2px 12px rgba(33, 98, 168, 0.04);
+      margin-bottom: 1.2rem;
+    }
+
+    .chat-messages {
+      min-height: 180px;
+      max-height: 280px;
+      overflow-y: auto;
+      padding-right: 0.3rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+      scroll-behavior: smooth;
+    }
+
+    .chat-messages::-webkit-scrollbar {
+      width: 4px;
+    }
+    .chat-messages::-webkit-scrollbar-track {
+      background: rgba(0,0,0,0.02);
+      border-radius: 10px;
+    }
+    .chat-messages::-webkit-scrollbar-thumb {
+      background: #9ac1e0;
+      border-radius: 10px;
+    }
+
+    .msg {
+      max-width: 88%;
+      padding: 0.6rem 1rem;
+      border-radius: 24px;
+      font-size: 0.9rem;
+      line-height: 1.5;
+      word-break: break-word;
+      box-shadow: 0 1px 4px rgba(0,0,0,0.02);
+      backdrop-filter: blur(2px);
+    }
+
+    .msg.bot {
+      align-self: flex-start;
+      background: rgba(255, 255, 255, 0.7);
+      border: 1px solid rgba(255, 255, 255, 0.7);
+      color: #0b3553;
+      border-bottom-left-radius: 6px;
+    }
+
+    .msg.user {
+      align-self: flex-end;
+      background: #2b7bb6;
+      color: white;
+      border: 1px solid #5f9ed0;
+      border-bottom-right-radius: 6px;
+    }
+
+    .chat-input-area {
+      display: flex;
+      gap: 0.6rem;
+      margin-top: 0.9rem;
+      align-items: center;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 60px;
+      padding: 0.3rem 0.3rem 0.3rem 1.2rem;
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(255,255,255,0.6);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      border: none;
+      background: transparent;
+      padding: 0.7rem 0;
+      font-size: 0.95rem;
+      color: #113451;
+      outline: none;
+      min-width: 0;
+    }
+
+    .chat-input-area input::placeholder {
+      color: #5282b0;
+      font-weight: 300;
+      opacity: 0.7;
+    }
+
+    .chat-input-area button {
+      background: #2d7ebd;
+      border: none;
+      color: white;
+      padding: 0.55rem 1.5rem;
+      border-radius: 60px;
+      font-weight: 500;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: 0.15s;
+      box-shadow: 0 2px 6px rgba(26, 98, 166, 0.2);
+      border: 1px solid rgba(255,255,255,0.2);
+      white-space: nowrap;
+    }
+
+    .chat-input-area button:hover {
+      background: #1965a3;
+      transform: scale(0.97);
+    }
+
+    .quick-questions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin: 1rem 0 0.2rem;
+    }
+
+    .quick-questions button {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      border: 1px solid rgba(54, 120, 185, 0.2);
+      padding: 0.25rem 1rem;
+      border-radius: 40px;
+      font-size: 0.8rem;
+      color: #1a4e77;
+      cursor: pointer;
+      transition: 0.1s;
+      font-weight: 430;
+    }
+
+    .quick-questions button:hover {
+      background: rgba(42, 115, 190, 0.15);
+      border-color: #3e8ec0;
+    }
+
+    .footer-note {
+      text-align: center;
+      margin-top: 1.6rem;
+      font-size: 0.75rem;
+      color: #3d7199;
+      opacity: 0.65;
+      border-top: 1px solid rgba(88, 150, 214, 0.1);
+      padding-top: 1rem;
+    }
+
+    /* 移动端适配 */
+    @media (max-width: 520px) {
+      .page {
+        padding: 1.5rem 1.2rem 2rem;
+        border-radius: 28px;
+      }
+      .profile-wrap {
+        gap: 1rem;
+      }
+      .avatar {
+        width: 76px;
+        height: 76px;
+        font-size: 2rem;
+      }
+      .name-bubble h1 {
+        font-size: 1.6rem;
+      }
+      .name-bubble h1 small {
+        font-size: 0.8rem;
+        padding: 0.1rem 0.8rem;
+      }
+      .info-grid {
+        padding: 0.6rem 0.8rem;
+        border-radius: 40px;
+        gap: 0.5rem;
+      }
+      .info-item {
+        font-size: 0.8rem;
+        padding: 0.1rem 0.7rem;
+      }
+      .chat-box {
+        padding: 0.8rem 0.8rem 0.6rem;
+      }
+      .chat-messages {
+        min-height: 150px;
+        max-height: 220px;
+      }
+    }
+
+    @media (max-width: 400px) {
+      .page {
+        padding: 1.2rem 0.8rem;
+      }
+      .name-bubble h1 {
+        font-size: 1.4rem;
+      }
+      .chat-input-area button {
+        padding: 0.5rem 1rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    /* 气泡装饰（清爽点缀） */
+    .bubble-icon {
+      display: inline-block;
+      filter: drop-shadow(0 2px 2px rgba(0,130,200,0.1));
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+  <!-- 头像 + 名字 + 气泡介绍 (无大分割块) -->
+  <div class="profile-wrap">
+    <div class="avatar" style="background-image: url('img/avatar.png'); background-size: cover; background-position: center; background-repeat: no-repeat; overflow: hidden;">
+      <span style="opacity: 0;">覃</span>
+    </div>
+    <div class="name-bubble">
+      <h1>
+        覃健强
+        <small>药品注册 · 进出口</small>
+      </h1>
+      <div class="tagline">
+        <i>🍃 真诚与温柔的守护者，一位不安分的绿老头（INFJ）</i>
+        <span>稳</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="content-section">
+    <!-- 个人信息展示区 —— 清爽标签，非大块分割 -->
+    <div class="personal-info">
+      <div class="info-grid">
+        <div class="info-item"><span class="label">💼 职业</span><span class="value">药品注册专员 (进出口)</span></div>
+        <div class="info-item"><span class="label">🔭 最近</span><span class="value">AI + 药品注册</span></div>
+        <div class="info-item"><span class="label">✨ 擅长</span><span class="value">英语 · 检索 · AI · 创作</span></div>
+        <div class="info-item"><span class="label">🎯 兴趣</span><span class="value">健身 · 唱歌 · 守望先锋</span></div>
+        <div class="info-item"><span class="label">🧊 特点</span><span class="value highlight">稳</span></div>
+      </div>
+      <p>Love is the currency of the world, always. All we ever wanted were the manifestations of love.</p>
+    </div>
+
+    <div class="separator"></div>  <!-- 添加分割线 -->
+
+    <!-- 数字分身聊天区 -->
+    <div class="chat-section">
+      <div class="chat-header">
+        <h2>
+          💬 数字分身 · 健强
+          <i>分身</i>
+        </h2>
+        <div class="chat-hint">问我任何事 · 像跟健强聊天</div>
+      </div>
+
+      <div class="chat-box">
+        <div class="chat-messages" id="chatMessages">
+          <div class="msg bot">嘿～ 我是覃健强的数字分身。工作、爱好、或者随便聊聊都行 😌</div>
+          <div class="msg bot">你可以问问我的工作经历、个人优势，或者健身/唱歌/游戏！</div>
+        </div>
+
+        <!-- 快捷提问 (3个常见问题) -->
+        <div class="quick-questions">
+          <button data-quick="说说你的工作经历">👔 工作经历</button>
+          <button data-quick="你觉得你的个人优势是什么">🌟 个人优势</button>
+          <button data-quick="你平时有什么兴趣爱好">🎵 兴趣爱好</button>
+        </div>
+
+        <div class="chat-input-area">
+          <input type="text" id="chatInput" placeholder="输入你想问健强的问题..." autocomplete="off">
+          <button id="sendBtn">发送</button>
+        </div>
+      </div>
+
+      <div class="footer-note">
+        ⚡ 数字分身基于公开信息 · 回复仅供参考 · 清爽如夏
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  (function() {
+    // ---------- 数字分身知识库 ----------
+    const botKnowledge = {
+      // 身份职业
+      identity: "覃健强，药品注册专员，主要负责进口与出口药品注册。目前正在研究如何用AI赋能药品注册工作，提升效率。",
+      // 工作经历 (常见问题1)
+      workExperience: "我目前在药企从事药品注册（进口+出口），熟悉国内外注册法规、CTD资料撰写、与监管机构沟通。之前也积累了一些研发支持和法规事务经验。英语能力强，经常处理海外注册文件。",
+      // 个人优势 (常见问题2)
+      personalAdvantage: "我的核心优势：1) 英语和信息检索能力突出，能快速获取全球注册动态；2) 擅长AI工具与内容创作，用新技术优化注册流程；3) 性格『稳』，做事严谨耐心，适合法规申报工作；4) 跨领域学习能力，从健身到编程都乐意探索。",
+      // 兴趣爱好 (常见问题3)
+      hobbies: "兴趣很集中：健身（每周保持力量+有氧）、唱歌（R&B/流行）、以及打《守望先锋》！偶尔研究AI和内容创作。哦对，特别喜欢夏天喝柠檬薄荷气泡水🍃",
+      // 额外细节
+      extra: "愿意捍卫真诚与温柔，是个『不安分』的绿老头（INFJ？），但做事很稳。目前沉迷用AI提效药品注册。",
+      // 兜底
+      fallback: "这个问题我暂时拿不准，不过你可以直接问健强本人😄 或者换一个问题试试～"
+    };
+
+    // 获取DOM
+    const messagesContainer = document.getElementById('chatMessages');
+    const chatInput = document.getElementById('chatInput');
+    const sendBtn = document.getElementById('sendBtn');
+    const quickBtns = document.querySelectorAll('.quick-questions button');
+
+    // 添加消息
+    function addMessage(text, sender = 'bot') {
+      const msgDiv = document.createElement('div');
+      msgDiv.className = `msg ${sender}`;
+      msgDiv.textContent = text;
+      messagesContainer.appendChild(msgDiv);
+      // 滚动到底部
+      messagesContainer.scrollTop = messagesContainer.scrollHeight;
+    }
+
+    // 生成机器人回复 (基于规则简单匹配)
+    function getBotReply(userText) {
+      const text = userText.trim().toLowerCase();
+
+      // 工作经历
+      if (text.includes('工作经历') || text.includes('工作') || text.includes('经历') || text.includes('职业') || text.includes('注册') || text.includes('药品注册') || text.includes('进出口')) {
+        return botKnowledge.workExperience;
+      }
+      // 个人优势
+      if (text.includes('优势') || text.includes('特长') || text.includes('擅长') || text.includes('特点') || text.includes('强项') || text.includes('竞争力') || text.includes('优点')) {
+        return botKnowledge.personalAdvantage;
+      }
+      // 兴趣爱好
+      if (text.includes('兴趣') || text.includes('爱好') || text.includes('喜欢') || text.includes('健身') || text.includes('唱歌') || text.includes('守望') || text.includes('游戏') || text.includes('音乐') || text.includes('娱乐')) {
+        return botKnowledge.hobbies;
+      }
+      // 问候
+      if (text.includes('你好') || text.includes('hi') || text.includes('hello') || text.includes('hey') || text.includes('在吗')) {
+        return '你好啊👋 我是健强的数字分身。有什么想了解的？工作、兴趣、或者随便聊聊～';
+      }
+      // 名字/身份
+      if (text.includes('你是谁') || text.includes('名字') || text.includes('健强') || text.includes('覃')) {
+        return `我是${botKnowledge.identity} 有什么可以帮你的？`;
+      }
+      // AI / 内容创作
+      if (text.includes('ai') || text.includes('人工智能') || text.includes('赋能') || text.includes('创作') || text.includes('内容')) {
+        return '最近我一直在研究AI+药品注册，比如用大模型整理注册资料、翻译、信息检索。也在探索内容创作，欢迎聊聊这方面！';
+      }
+      // 英语/信息检索
+      if (text.includes('英语') || text.includes('检索') || text.includes('信息') || text.includes('搜索')) {
+        return '英语和信息检索是我比较自信的方向。平时会用各种数据库、AI工具辅助注册情报收集，也喜欢分享检索技巧。';
+      }
+      // 性格/稳
+      if (text.includes('稳') || text.includes('性格') || text.includes('绿老头') || text.includes('infj') || text.includes('温柔')) {
+        return '哈哈，「稳」这个评价我很喜欢。愿意捍卫真诚与温柔，但同时也有点不安分，喜欢折腾新东西（比如AI）。';
+      }
+      // 默认
+      return botKnowledge.fallback;
+    }
+
+    // 处理用户发送
+    function handleSend() {
+      const rawText = chatInput.value.trim();
+      if (!rawText) return;
+
+      // 添加用户消息
+      addMessage(rawText, 'user');
+      chatInput.value = '';
+
+      // 生成回复 (延迟模仿思考)
+      setTimeout(() => {
+        const reply = getBotReply(rawText);
+        addMessage(reply, 'bot');
+      }, 200 + Math.random() * 200);
+    }
+
+    // 事件绑定
+    sendBtn.addEventListener('click', handleSend);
+    chatInput.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+        handleSend();
+      }
+    });
+
+    // 快捷问题
+    quickBtns.forEach(btn => {
+      btn.addEventListener('click', function() {
+        const question = this.getAttribute('data-quick');
+        if (question) {
+          chatInput.value = question;
+          handleSend();
+        }
+      });
+    });
+
+    // 初始额外问候 (让对话更丰富)
+    setTimeout(() => {
+      // 如果消息只有两条初始，再加一条问候（提升体验）
+      if (messagesContainer.children.length <= 2) {
+        addMessage('你可以直接点击上面的问题，或者打字问我😊', 'bot');
+      }
+    }, 400);
+  })();
+</script>
+</body>
+</html>
