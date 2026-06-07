@@ -78,6 +78,7 @@
       font-weight: 400;
       transition: 0.2s;
       border: 2px solid rgba(255, 255, 255, 0.8);
+      margin-top: -100px; /* 调整这个值以使头像向上移动 */
     }
 
     .avatar span {
@@ -85,6 +86,8 @@
     }
 
     .name-bubble {
+      display: flex;
+      flex-direction: column;
       flex: 1;
       min-width: 180px;
     }
@@ -114,6 +117,18 @@
     }
 
     .tagline {
+      margin-top: 0.5rem;
+      font-size: 1.05rem;
+      color: #1d4970;
+      background: rgba(120, 180, 240, 0.08);
+      padding: 0.3rem 1rem 0.3rem 0;
+      border-radius: 30px;
+      display: inline-block;
+      backdrop-filter: blur(2px);
+      font-weight: 420;
+    }
+
+    .name-bubble .tagline {
       margin-top: 0.5rem;
       font-size: 1.05rem;
       color: #1d4970;
@@ -555,6 +570,13 @@
       margin-left: 55%;
     }
 
+    .contact-info {
+      margin-top: 0.5rem;
+      font-size: 1.05rem;
+      color: #1d4970;
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 <body>
@@ -572,6 +594,12 @@
       <div class="tagline">
         <i>🍃 真诚与温柔的守护者，一位不安分的绿老头（INFJ）</i>
         <span>稳</span>
+      </div>
+      <!-- 新增：个人联系方式 -->
+      <div class="contact-info">
+        <p><strong>邮箱：</strong>JohnnyQinn@hotmail.com</p>
+        <p><strong>电话：</strong>(+86)13710372769</p>
+        <p><strong>意向工作地点：</strong>深圳·广州</p>
       </div>
     </div>
   </div>
@@ -697,7 +725,7 @@
       </div>
 
       <div class="footer-note">
-        ⚡ 数字分身基于公开信息 · 回复仅供参考 · 清爽如夏
+        ⚡ 基于本人信息公开 · © 2026 Johnny
       </div>
     </div>
   </div>
