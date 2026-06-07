@@ -481,6 +481,80 @@
       line-height: 1.6;
     }
 
+    .timeline-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .timeline-header {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1d4970;
+      border-bottom: 1px solid rgba(54, 122, 196, 0.15);
+      padding-bottom: 0.5rem;
+    }
+
+    .timeline {
+      display: flex;
+      flex-direction: column;
+      position: relative;
+    }
+
+    .timeline::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 2px;
+      height: 100%;
+      background: rgba(54, 122, 196, 0.15);
+    }
+
+    .timeline-item {
+      display: flex;
+      align-items: center;
+      position: relative;
+      padding: 0.8rem 0;
+    }
+
+    .timeline-item::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 12px;
+      height: 12px;
+      background: #2b7bb6;
+      border-radius: 50%;
+      z-index: 1;
+    }
+
+    .timeline-content {
+      width: 50%;
+      padding: 0.8rem 1.2rem;
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 20px;
+      font-size: 0.9rem;
+      color: #184269;
+      line-height: 1.6;
+    }
+
+    .timeline-content.left {
+      text-align: right;
+      margin-right: 55%;
+    }
+
+    .timeline-content.right {
+      text-align: left;
+      margin-left: 55%;
+    }
+
   </style>
 </head>
 <body>
@@ -514,7 +588,56 @@
       </div>
     </div>
 
-    <!-- 新增：个人经历与成绩 -->
+    <!-- 新增：个人经历 -->
+    <div class="timeline-section">
+      <div class="timeline-header">个人经历</div>
+      <div class="timeline">
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <strong>2014年9月-2018年7月</strong><br>
+            广东工业大学<br>
+            👨🏻‍🎓制药工程
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content right">
+            <strong>2018年7月-2018年12月</strong><br>
+            深圳海普瑞药业有限公司<br>
+            👨‍💼QA助理工程师
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <strong>2019年10月-2020年10月</strong><br>
+            金吉列（广州）出国留学咨询服务有限公司<br>
+            👨‍💻咨询顾问助理
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content right">
+            <strong>2021年9月-2024年7月</strong><br>
+            上海中医药大学<br>
+            👨🏻‍🎓翻译硕士
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content left">
+            <strong>2022年11月-2023年4月</strong><br>
+            欧加隆（上海）医药科技技术有限公司<br>
+            👨‍💻注册部门实习生
+          </div>
+        </div>
+        <div class="timeline-item">
+          <div class="timeline-content right">
+            <strong>2024年7月-至今</strong><br>
+            深圳华润九新药业有限公司<br>
+            👨‍💼注册专员
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 新增：获得成绩 -->
     <div class="achievements-section">
       <div class="achievements-header">获得成绩</div>
       <div class="achievement-item">
