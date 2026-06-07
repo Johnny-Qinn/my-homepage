@@ -44,15 +44,14 @@
     .content-section {
       display: flex;
       flex-direction: column;
-      flex: 1;  /* 让.content-section占据剩余所有可用空间 */
+      /*flex: 1;  !* 让.content-section占据剩余所有可用空间 *!*/
     }
 
     .personal-info {
-      flex: 2;  /* 占据2/3的比例 */
+      /*flex: 2;  !* 占据2/3的比例 *!*/
       display: flex;
       flex-direction: column;
       gap: 1.5rem;
-      /* margin-bottom: 1.5rem;  /* 增加下边界间距 */
     }
 
     /* 头像 + 名字 + 气泡简介 */
@@ -440,6 +439,48 @@
       display: inline-block;
       filter: drop-shadow(0 2px 2px rgba(0,130,200,0.1));
     }
+
+    .achievements-section {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+      margin-bottom: 0.7rem;
+    }
+
+    .achievements-header {
+      font-size: 1.3rem;
+      font-weight: 600;
+      color: #1d4970;
+      border-bottom: 1px solid rgba(54, 122, 196, 0.15);
+      padding-bottom: 0.5rem;
+    }
+
+    .achievement-item {
+      display: flex;
+      flex-direction: column;
+      gap: 0.8rem;
+    }
+
+    .achievement-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1d4970;
+      padding: 0;
+      border: none;
+      border-radius: 0;
+    }
+
+    .achievement-details {
+      background: rgba(255, 255, 255, 0.3);
+      backdrop-filter: blur(4px);
+      -webkit-backdrop-filter: blur(4px);
+      border-radius: 20px;
+      padding: 0.8rem 1.2rem;
+      font-size: 1rem;
+      color: #184269;
+      line-height: 1.6;
+    }
+
   </style>
 </head>
 <body>
@@ -471,7 +512,34 @@
         <div class="info-item"><span class="label">🎯 兴趣</span><span class="value">健身 · 唱歌 · 守望先锋</span></div>
         <div class="info-item"><span class="label">🧊 特点</span><span class="value highlight">稳</span></div>
       </div>
-      <p>Love is the currency of the world, always. All we ever wanted were the manifestations of love.</p>
+    </div>
+
+    <!-- 新增：个人经历与成绩 -->
+    <div class="achievements-section">
+      <div class="achievements-header">获得成绩</div>
+      <div class="achievement-item">
+        <div class="achievement-title">🏆 成就一：进口注册</div>
+        <div class="achievement-details">
+          <ol>
+            <li>进口药品补充申请批件</li>
+            <li>进口药品（制剂）再注册批件</li>
+            <li>进口药品（原料药）再注册批件</li>
+            <li>进口药品参比制剂公示</li>
+            <li>进口药品一次性进口批件</li>
+          </ol>
+        </div>
+      </div>
+      <div class="achievement-item">
+        <div class="achievement-title">🏆 成就二：出口注册</div>
+        <div class="achievement-details">
+          <ol>
+            <li>联合国、以色列、香港制剂注册批件</li>
+            <li>阿根廷、菲律宾、泰国、香港、哥斯达黎加制剂注册受理</li>
+            <li>CTD和ACTD资料撰写</li>
+          </ol>
+        </div>
+      </div>
+      <!-- 可以继续添加更多成就项 -->
     </div>
 
     <div class="separator"></div>  <!-- 添加分割线 -->
